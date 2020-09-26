@@ -29,14 +29,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	@Bean
 	public BCryptPasswordEncoder encode() {
+		System.out.println("com.cos.instagram.cofig.SecurityConfigjava의 encode에 진입");
 		return new BCryptPasswordEncoder();
 	}
-	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
+		System.out.println("com.cos.instagram.cofig.SecurityConfigjava의 configure에 진입");
 		http.csrf().disable();
 		http.authorizeRequests()
-		.antMatchers("/", "/user/**", "/follow/**", "/image/**")
+		.antMatchers("/", "/user/**", "/follow/**", "/image/**") //특정한 경로 지정
 		.authenticated()
 		.antMatchers("/admin/**")
 		.access("hasRole('ROLE_ADMIN')")
@@ -44,13 +45,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		.permitAll()
 		.and()
 		.formLogin()
-		.loginPage("/auth/loginForm")
+		.loginPage("/auth/loginForm")//앞으로 로그인은 이경로에서 수행한다
 		.loginProcessingUrl("/auth/login")
 		.defaultSuccessUrl("/")
 		.failureHandler(new AuthenticationFailureHandler() {		
 			@Override 
 			public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
 					AuthenticationException exception) throws IOException, ServletException {
+			System.out.println("com.cos.instagram.cofig.SecurityConfigjava의 configure의 onAuthenticationFailure에 진입");
 				response.setContentType("text/html; charset=utf-8"); 
 				PrintWriter out = response.getWriter();
 				out.print(Script.back("유저네임 혹은 비밀번호를 찾을 수 없습니다."));

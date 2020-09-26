@@ -1,17 +1,20 @@
 {{>layout/header}}
 <main id="profile">
 	<header class="profile__header">
+	<!-- 저 밑에 avatar__container 클래스 땜시 사진움직임 -->
 		<div class="avatar__container">
 			<form id="frm_profile_img" action="/user/profileUpload" method="post" enctype="multipart/form-data">
 				<input type="file" name="profileImage" style="display: none;" />
 				<input type="hidden" name="userId" value="{{respDto.user.id}}" />
 			</form>
+
 			<img src="/upload/{{#respDto.user.profileImage}}{{respDto.user.profileImage}}{{/respDto.user.profileImage}}" id="profile_image"
 				style="cursor: pointer" onerror="this.src='/images/avatar.jpg'" />
 		</div>
 		
 		<div class="profile__info">
 			<div class="profile__title">
+			
 				<h1>{{respDto.user.username}}</h1>
 				{{^respDto.pageHost}}
 				    {{#respDto.followState}}
@@ -27,6 +30,7 @@
 				{{/respDto.pageHost}}
 				
 				{{#respDto.pageHost}}
+			
 					<a href="/image/uploadForm">
 						<button class="profile_edit_btn">사진등록</button>	
 					</a>
@@ -66,9 +70,12 @@
 				
 				<!-- 유저가 업로드한 Feed 사진 -->
 				{{#respDto.images}}
+				
 					<div class="profile__photo">
-						<a href="#"> 
-							<img src="/upload/{{imageUrl}}">
+						<a href="#">
+							여기가 사진 바로위 
+							{{imageUrl}}
+							<img src="/upload/{{imageUrl}}" >
 						</a>
 						<div class="profile__photo-overlay">
 							<span class="profile__photo-stat"> 

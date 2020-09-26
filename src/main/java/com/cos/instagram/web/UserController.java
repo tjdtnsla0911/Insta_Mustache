@@ -26,8 +26,10 @@ public class UserController {
 	
 	@GetMapping("/user/{id}")
 	public String profile(@PathVariable int id, @LoginUserAnnotation LoginUser loginUser, Model model) {
+		System.out.println("web.UserController.java의/user/{id}에 왔습니다.");
 		UserProfileRespDto userProfileRespDto = userService.회원프로필(id, loginUser);
 		model.addAttribute("respDto", userProfileRespDto);
+		System.out.println("web.UserController.java의/user/{id}의 userProfileRespDto = "+userProfileRespDto);
 		return "user/profile";
 	}
 	
@@ -35,6 +37,7 @@ public class UserController {
 	public String profileEdit(
 			@LoginUserAnnotation LoginUser loginUser,
 			Model model) {
+		System.out.println("web.UserController.java의/user/profileEdit에 왔습니다.");
 		User userEntity = userService.회원정보(loginUser);
 		model.addAttribute("user", userEntity);
 		return "user/profile-edit";
@@ -42,6 +45,8 @@ public class UserController {
 	
 	@PutMapping("/user")
 	public ResponseEntity<?> userUpdate(User user){
+		System.out.println("web.UserController.java의/user에 왔습니다.");
+
 		userService.회원수정(user);
 		return new ResponseEntity<String>("ok", HttpStatus.OK);
 	}
@@ -51,7 +56,12 @@ public class UserController {
 	public String userProfileUpload(@RequestParam("profileImage") MultipartFile file,
 			int userId,
 			@LoginUserAnnotation LoginUser loginUser){
+		System.out.println("web.UserController.java의/user/profileUpload에 왔습니다.");
+
 		if(userId == loginUser.getId()) {
+			
+			System.out.println("web.UserController.java의/user/profileUpload의 if문 에왔습니다");
+		
 			userService.프로필사진업로드(loginUser, file);
 		}
 		

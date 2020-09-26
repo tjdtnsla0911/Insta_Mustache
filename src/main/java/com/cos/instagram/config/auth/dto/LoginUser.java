@@ -15,6 +15,8 @@ public class LoginUser {
 	private String providerId;
 	
 	public LoginUser(User user) {
+		System.out.println("config.auth.dto.LoginUser.java의 LoginUser에 왔습니다");
+		System.out.println("config.auth.dto.LoginUser.java의 LoginUser의 user = "+user);
 		this.id = user.getId();
 		this.username = user.getUsername();
 		this.email = user.getEmail();

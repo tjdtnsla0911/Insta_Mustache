@@ -29,6 +29,9 @@ public class PrincipalDetailsService implements UserDetailsService {
 	// 해당 함수가 정상적으로 리턴되면 @AuthenticationPricipal 어노테이션 활성화됨.
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		System.out.println("config.auth.PrincipalDetailsService.java의 loadUserByUsername에 왔습니다");
+		System.out.println("config.auth.PrincipalDetailsService.java의 loadUserByUsername의  username = "+username);
+
 		log.info("loadUserByUsername : username : " + username);
 
 		User userEntity = userRepository.findByUsername(username)
@@ -40,6 +43,8 @@ public class PrincipalDetailsService implements UserDetailsService {
 					}
 				})
 				.orElse(null);
+		System.out.println("config.auth.PrincipalDetailsService.java의loadUserByUsername 의userEntity = "+userEntity);
+
 		return new PrincipalDetails(userEntity);
 	}
 

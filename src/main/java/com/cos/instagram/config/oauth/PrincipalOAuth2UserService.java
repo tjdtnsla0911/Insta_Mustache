@@ -40,6 +40,7 @@ public class PrincipalOAuth2UserService extends DefaultOAuth2UserService{
 	
 	@Override
 	public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
+		System.out.println("config.oauth.PrincipalOAuth2UserService.java의 loadUser에 왔습니다 ");
 		log.info(userRequest.getAccessToken().getTokenValue());
 		log.info(userRequest.getClientRegistration().toString());
 		
@@ -54,6 +55,8 @@ public class PrincipalOAuth2UserService extends DefaultOAuth2UserService{
 	}
 	
 	private User oauthLoginOrJoin(OAuth2User oAuth2User) {
+		System.out.println("config.oauth.PrincipalOAuth2UserService.java의 oauthLoginOrJoin에 왔습니다 ");
+
 
 		String provider = "facebook";
 		String providerId = oAuth2User.getAttribute("id");

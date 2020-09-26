@@ -15,21 +15,28 @@ public class GlobalExceptionHandler {
 
 	@ExceptionHandler(value=MyUserIdNotFoundException.class)
 	public String myUserIdNotFoundException(Exception e) {
+		System.out.println("config.hanlder.GlobalExceptionHandler.java의  myUserIdNotFoundException에 왔습니다ㄴ");
 		return Script.back(e.getMessage());
 	}
 	
 	@ExceptionHandler(value=MyUsernameNotFoundException.class)
 	public String myUsernameNotFoundException(Exception e) {
+		System.out.println("config.hanlder.GlobalExceptionHandler.java의  myUsernameNotFoundException에 왔습니다ㄴ");
+
 		return Script.alert(e.getMessage());
 	}
 	
 	@ExceptionHandler(value=MyImageIdNotFoundException.class)
 	public String myImageIdNotFoundException(Exception e) {
+		System.out.println("config.hanlder.GlobalExceptionHandler.java의  myImageIdNotFoundException에 왔습니다ㄴ");
+
 		return Script.alert(e.getMessage());
 	}
 	
 	@ExceptionHandler(value=IllegalArgumentException.class)
 	public String myIllegalArgumentException(Exception e) {
+		System.out.println("config.hanlder.GlobalExceptionHandler.java의  myIllegalArgumentException에 왔습니다ㄴ");
+
 		return Script.alert(e.getMessage());
 	}
 }

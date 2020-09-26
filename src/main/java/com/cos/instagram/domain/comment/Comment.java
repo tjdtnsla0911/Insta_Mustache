@@ -23,7 +23,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@Entity
+@Entity//클래스매핑
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor

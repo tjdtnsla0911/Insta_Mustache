@@ -20,6 +20,7 @@ public class AuthController {
 	
 	@GetMapping("/auth/loginForm")
 	public String loginForm() {
+		System.out.println("loginFrom에 진입");
 		log.info("/auth/loginForm 진입"); 
 		return "auth/loginForm"; 
 	}
@@ -30,6 +31,8 @@ public class AuthController {
 	}
 	@PostMapping("/auth/join")
 	public String join(JoinReqDto joinReqDto) {
+		System.out.println("/auth/join에 들어왔습니다.");
+		System.out.println("/auth/join의 받은 joinReqDto = "+joinReqDto);
 		log.info(joinReqDto.toString());
 		userService.회원가입(joinReqDto);
 		return "redirect:/auth/loginForm";
