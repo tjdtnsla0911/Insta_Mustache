@@ -23,50 +23,42 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
-	
+
 	@GetMapping("/user/{id}")
 	public String profile(@PathVariable int id, @LoginUserAnnotation LoginUser loginUser, Model model) {
-		System.out.println("web.UserController.java의/user/{id}에 왔습니다.");
+
 		UserProfileRespDto userProfileRespDto = userService.회원프로필(id, loginUser);
 		model.addAttribute("respDto", userProfileRespDto);
-		System.out.println("web.UserController.java의/user/{id}의 userProfileRespDto = "+userProfileRespDto);
+
 		return "user/profile";
 	}
-	
+
 	@GetMapping("/user/profileEdit")
-	public String profileEdit(
-			@LoginUserAnnotation LoginUser loginUser,
-			Model model) {
-		System.out.println("web.UserController.java의/user/profileEdit에 왔습니다.");
+	public String profileEdit(@LoginUserAnnotation LoginUser loginUser, Model model) {
+
 		User userEntity = userService.회원정보(loginUser);
 		model.addAttribute("user", userEntity);
 		return "user/profile-edit";
 	}
-	
+
 	@PutMapping("/user")
-	public ResponseEntity<?> userUpdate(User user){
-		System.out.println("web.UserController.java의/user에 왔습니다.");
+	public ResponseEntity<?> userUpdate(User user) {
 
 		userService.회원수정(user);
 		return new ResponseEntity<String>("ok", HttpStatus.OK);
 	}
-	
+
 	// 원래는 put으로 하는게 맞는데 편하게 하기 위해
 	@PostMapping("/user/profileUpload")
-	public String userProfileUpload(@RequestParam("profileImage") MultipartFile file,
-			int userId,
-			@LoginUserAnnotation LoginUser loginUser){
-		System.out.println("web.UserController.java의/user/profileUpload에 왔습니다.");
+	public String userProfileUpload(@RequestParam("profileImage") MultipartFile file, int userId,
+			@LoginUserAnnotation LoginUser loginUser) {
 
-		if(userId == loginUser.getId()) {
-			
-			System.out.println("web.UserController.java의/user/profileUpload의 if문 에왔습니다");
-		
+		if (userId == loginUser.getId()) {
+
 			userService.프로필사진업로드(loginUser, file);
 		}
-		
-		return "redirect:/user/"+userId;
+
+		return "redirect:/user/" + userId;
 	}
+	// 여긴 내가 추가한곳
 }
-
-

@@ -8,7 +8,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import com.cos.instagram.domain.user.User;
 
 import lombok.AllArgsConstructor;
@@ -18,6 +22,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Entity
+@Table(name="follow")
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -36,6 +41,9 @@ public class Follow {
 	
 	@CreationTimestamp
 	private Timestamp createDate;
+	
+	@UpdateTimestamp
+	private Timestamp updateDate;
 }
 
 

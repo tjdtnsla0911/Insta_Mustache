@@ -20,12 +20,12 @@ public class TestController {
 	public @ResponseBody String facebook(
 			Authentication authentication
 	) {
-		System.out.println("authentication : "+authentication.getPrincipal());
-		System.out.println("authentication : "+authentication.getDetails());
+
+
 		OAuth2User oauth2user = 
 				(OAuth2User)authentication.getPrincipal();
-		System.out.println("authentication : "+oauth2user.getAttributes());
-		//System.out.println("authentication : "+principalDetails.getUser());
+
+
 		return "facebook 로그인완료";
 	}
 	
@@ -33,7 +33,7 @@ public class TestController {
 	public @ResponseBody String facebook2(
 			@AuthenticationPrincipal UserDetails principal
 	) {
-		System.out.println(principal.getUsername());
+
 		return "facebook 로그인완료2";
 	}
 	

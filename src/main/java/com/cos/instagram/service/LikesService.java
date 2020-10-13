@@ -37,4 +37,21 @@ public class LikesService {
 	public void 싫어요(int imageId, int loginUserId) {
 		likesRepository.mDelete(imageId, loginUserId);
 	}
+	
+//	@Autowired private BoardRepository boardRepository;
+//	JPAQueryFactory queryFactory;
+//	@Override
+//	public BoardEntity getBoardInfo(Integer boardNum) throws Exception {
+//		// TODO Auto-generated method stub
+//		
+//		QBoardEntity entity = QBoardEntity.boardEntity;
+//		
+//		// querydsl
+//		BoardEntity brd = queryFactory.selectFrom(entity).where(entity.boardNum.eq(boardNum)).fetchOne();
+//		// repository
+//		BoardEntity brdRepository = boardRepository.findByBoardNum(boardNum);
+//		
+//		return brd;
+//	}
+	
 }

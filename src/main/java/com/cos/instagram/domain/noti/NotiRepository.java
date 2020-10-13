@@ -5,7 +5,8 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-
+import org.springframework.stereotype.Repository;
+@Repository
 public interface NotiRepository extends JpaRepository<Noti, Integer>{
 	@Modifying
 	@Query(value = "INSERT INTO noti(fromUserId, toUserId, notiType, createDate) VALUES(?1, ?2, ?3, now())", nativeQuery = true)

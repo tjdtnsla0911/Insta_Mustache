@@ -29,12 +29,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	@Bean
 	public BCryptPasswordEncoder encode() {
-		System.out.println("com.cos.instagram.cofig.SecurityConfigjava의 encode에 진입");
+		System.out.println("BCryptPasswordEncoder에 왔습니다.");
+
 		return new BCryptPasswordEncoder();
 	}
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		System.out.println("com.cos.instagram.cofig.SecurityConfigjava의 configure에 진입");
+
 		http.csrf().disable();
 		http.authorizeRequests()
 		.antMatchers("/", "/user/**", "/follow/**", "/image/**") //특정한 경로 지정
@@ -52,7 +53,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			@Override 
 			public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
 					AuthenticationException exception) throws IOException, ServletException {
-			System.out.println("com.cos.instagram.cofig.SecurityConfigjava의 configure의 onAuthenticationFailure에 진입");
+				System.out.println("onAuthenticationFailure에옴");
+
 				response.setContentType("text/html; charset=utf-8"); 
 				PrintWriter out = response.getWriter();
 				out.print(Script.back("유저네임 혹은 비밀번호를 찾을 수 없습니다."));

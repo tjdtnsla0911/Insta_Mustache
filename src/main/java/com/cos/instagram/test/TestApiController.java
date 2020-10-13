@@ -43,7 +43,7 @@ public class TestApiController {
 	
 	@PostMapping("/test/api/join")
 	public User join(@RequestBody User user) {
-		System.out.println("/test/api/join");
+
 		user.setRole(UserRole.USER); // USER
 		
 		User userEntity = userRepository.save(user);

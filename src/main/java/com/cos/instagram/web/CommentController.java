@@ -20,7 +20,7 @@ public class CommentController {
 	
 	@PostMapping("/comment")
 	public ResponseEntity<?> comment(CommentRespDto commentRespDto) {
-		System.out.println("commentRespDto : "+commentRespDto);
+
 		commentService.댓글쓰기(commentRespDto);
 		return new ResponseEntity<String>("ok", HttpStatus.CREATED);
 	}

@@ -5,11 +5,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class InstagramApplication {
-
+	
 	public static void main(String[] args) {
-		System.out.println("인스타시작");
+		System.out.println("start");
 		SpringApplication.run(InstagramApplication.class, args);
-		System.out.println("인스타 끝");
+		System.out.println("end");
 	}
 
 }

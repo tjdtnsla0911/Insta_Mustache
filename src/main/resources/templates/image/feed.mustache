@@ -1,11 +1,15 @@
 {{>layout/header}}
+
 <!-- 부트스트랩 추가한곳 -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 <main id="feed">
 <!-- ---------------------- -->
 <!--  여기서 부터 글 올라온거 시작됨 -->
+
+<input type="hidden" class="myNumber" value="{{myNumber}}">
 	{{#images}}
+
 
 	<div class="photo u-default-box">
 
@@ -13,11 +17,13 @@
 
 			<img src="/upload/{{#user.profileImage}}{{user.profileImage}}{{/user.profileImage}}"  onerror="this.src='/images/avatar.jpg'" /> 
 			<span class="photo__username">{{user.username}}</span>
-			<button type="button" class="btn btn-primary" onclick="follow({{user.id}})">팔로우</button>
+			<button type="button" class="btn btn-primary btn_follow{{user.id}}" onclick="follow({{user.id}})" id = "btn_follow{{user.id}}">팔로우</button>
 		</header>
 		<div class="photo_post_image"> <!-- 사진꽉채우기 css -->
 			<img src="/upload/{{imageUrl}}" />
 		</div>
+		<br/>
+		<p style="display: inline-block; width: 500px;"> {{caption}}</p>>
 		<div class="photo__info">
 			<div class="photo__actions">
 				<span class="photo__action">
@@ -65,11 +71,99 @@
 	
 </main>
 <script>
+
+$(function(){
+
+	console.log("여기왓습니까?");
+	getFollow();
+})
+function getFollow() {
+	console.log('getFollow()에왔습니다');
+	//여기서 follow리스트 다뽑아와야할듯.
+	var myNumber = $(".myNumber").val();
+	console.log('myNumber잘받았니 ? = '+myNumber);
+	//현재잘받았고
+	var btn = $("button").length;
+	console.log('btn = ',btn);
+	$.ajax({
+		type:"POST",
+		url:"/follow/getFollow",
+		contentType: "application/json; charset=utf-8",
+		dataType:"json"
+	}).done(function(resp){
+		console.log("받은 resp = ",resp);
+		console.log("resp.length = ",resp.length);	
+		$(".btn_follow"+myNumber).html("자기자신");
+		if(resp ==""||resp ==null){
+			console.log('resp 빈거에 왔습니다');
+			return;
+			
+		}
+		console.log("done에 왔습니다.");
+		console.log("resp = ",resp);	
+		console.log("resp.length = ",resp.length);	
+		//////////////////////////////////////////
+		for (var i = 0; i <resp.length; i++) {
+			console.log("for에 왔습니다 ^^");
+			console.log();
+			var id = resp[i].toUser.id;
+			console.log("list[i].toUser.id = "+id);
+			console.log("받은 id는 ? = "+id);
+			$(".btn_follow"+id).html("팔로잉");
+			$(".btn_follow"+myNumber).html("자기자신");
+			
+		}
+	}).fail(function (error){
+		alert('getList실패');
+	});
+}
+
 function follow(id){
-	console.log(id);
-	&.ajax({
-		type:""
-	})
+	console.log("id받아오는곳");
+	console.log("받은 id = ? ",id);
+	var myNumber = $(".myNumber").val();
+	if(id == myNumber){
+		console.log("if문에는들어왔니?");
+		alert('자신자신은 팔로우 할수 없습니다.');
+
+		return;
+	}
+	var btn = $(".btn_follow"+id).length;
+	$.ajax({
+		type:"POST",
+		url:"/follow/"+id,
+		data:id,
+		contentType: "application/json; charset=utf-8",
+		dataType:"text"
+	}).done(function(resp){
+		
+		if (resp == 1) {
+			for (var i = 0; i <btn; i++) {
+				$(".btn_follow"+id).html("팔로잉");
+			}
+		}
+	}).fail(function (error){
+		alert('실패');
+	});
+}
+
+function followGET(id){
+	var btn = $(".btn_follow"+id).length;
+	$.ajax({
+		type:"GET",
+		url:"/follow/"+id,
+		data:id,
+		contentType: "application/json; charset=utf-8",
+		dataType:"text"
+	}).done(function(resp){
+		if (resp == 1) {
+			for (var i = 0; i <btn; i++) {
+				$(".btn_follow"+id).html("팔로잉");
+			}
+		}
+	}).fail(function (error){
+		alert('실패');
+	});
 }
 </script>
 

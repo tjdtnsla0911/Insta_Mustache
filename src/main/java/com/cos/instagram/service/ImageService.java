@@ -72,23 +72,23 @@ public class ImageService {
 	
 	@Transactional
 	public void 사진업로드(ImageReqDto imageReqDto, int userId) {
-		System.out.println("service.ImageService.java의 사진업로드 에 왔습니다");
+
 		User userEntity = userRepository.findById(userId).
 				orElseThrow(null);
 		
-		System.out.println("service.ImageService.java의 사진업로드의 userEntity = "+userEntity );
+
 		UUID uuid = UUID.randomUUID();
 		String imageFilename = 
 				uuid+"_"+imageReqDto.getFile().getOriginalFilename();
-		System.out.println("service.ImageService.java의 사진업로드의 imageFilename = "+imageFilename );
+
 
 		Path imageFilepath = Paths.get(uploadFolder+imageFilename);
-		System.out.println("imageFilepath = "+imageFilepath);
+
 		try {
-			System.out.println("try에왔습니다.");
-			System.out.println("사이즈 = "+imageReqDto.getFile().getSize());
+
+
 			Files.write(imageFilepath, imageReqDto.getFile().getBytes());
-			System.out.println("try끝");
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -99,13 +99,13 @@ public class ImageService {
 		// 1. Image 저장
 		Image image = imageReqDto.toEntity(imageFilename, userEntity);
 		Image imageEntity = imageRepository.save(image);
-		System.out.println("service.ImageService.java의 사진업로드의 imageEntity = "+imageEntity );
+
 
 
 		
 		// 2. Tag 저장
 		List<String> tagNames = Utils.tagParse(imageReqDto.getTags());
-		System.out.println("service.ImageService.java의 사진업로드의 tagNames = "+tagNames );
+
 
 		for (String name : tagNames) {
 			Tag tag = Tag.builder()

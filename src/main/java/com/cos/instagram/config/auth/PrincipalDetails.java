@@ -27,13 +27,15 @@ public class PrincipalDetails implements UserDetails, OAuth2User{
 	
 	// 일반 로그인 용 생성자
 	public PrincipalDetails(User user) {
-		System.out.println("config.auth.PrincipalDetails.java의 PrincipalDetails에 진입 ");
-		System.out.println("config.auth.PrincipalDetails.java의 PrincipalDetails의 user = "+user);
+		System.out.println("PrincipalDetails에 왔습니다");
+		System.out.println("user = "+user);
+
+
 		if(user == null ) {
-			System.out.println("usernull에 왔습니다");
+
 	
 		res.setContentType("text/html; charset=UTF-8");
-		System.out.println("script하러 직전 까지왔습니다.");
+
 			PrintWriter script = null;
 			try {
 				script = res.getWriter();
@@ -50,8 +52,8 @@ public class PrincipalDetails implements UserDetails, OAuth2User{
 	
 	// OAuth 로그인 용 생성자
 	public PrincipalDetails(User user, Map<String, Object> attributes) {
-		System.out.println("config.auth.PrincipalDetails.java의 PrincipalDetails의 진입(오버로딩)");
-		System.out.println("config.auth.PrincipalDetails.java의 PrincipalDetails의 진입(오버로딩)의 user = "+user);
+
+
 		
 		this.user = user;
 		this.attributes = attributes;
@@ -59,18 +61,18 @@ public class PrincipalDetails implements UserDetails, OAuth2User{
 	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		System.out.println("config.auth.PrincipalDetails.java의 getAuthorities에 진입");
+
 
 		Collection<GrantedAuthority> collection = new ArrayList<GrantedAuthority>();
 		collection.add(()-> user.getRole().getKey());
-		System.out.println("config.auth.PrincipalDetails.java의 getAuthorities의 reutrn 직전 collection ="+collection);
+
 		return collection;
 	}
 
 	@Override
 	public String getPassword() {
-		System.out.println("config.auth.PrincipalDetails.java의 getPassword에 진입");
-		System.out.println("config.auth.PrincipalDetails.java의 getPassword의 user.getPassword = "+user.getPassword());
+System.out.println("getPassword에 왔습니다 + user.getpassword = "+user.getPassword());
+
 		return user.getPassword();
 	}
 
