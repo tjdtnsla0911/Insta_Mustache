@@ -44,6 +44,7 @@ public class PrincipalDetails implements UserDetails, OAuth2User{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			System.out.println("여기로왔음 비번틀린곳");
 			script.println("<script>alert('비번이 틀렸습니다')</script>");
 			script.println("location.href=/");
 		}
